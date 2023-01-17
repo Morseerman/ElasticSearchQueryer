@@ -7,10 +7,11 @@ import java.net.URL;
 
 public class RequestHandler {
     public void sendGetRequest() throws IOException{
-        // URL url = new URL("https://backpack.tf/api/IGetCurrencies/v1");
-        // HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        // con.setRequestMethod("GET");
+        URL url = new URL("https://backpack.tf/api/IGetCurrencies/v1");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
         
-        // System.out.println(con.getContent());
+        
+        System.out.println(con.getContentEncoding());
     }
 }
