@@ -1,7 +1,9 @@
 package com.example.elasticsearch;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,11 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.client.RestTemplate;
 
-import com.example.elasticsearch.person.Person;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.elasticsearch.es2.MyService;
+import com.example.elasticsearch.es2.ObjectModel;
 
 
 @SpringBootApplication
@@ -23,11 +24,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ElasticsearchApplication {
 
 	public ElasticsearchApplication(){};
+	public static HashMap jsonMap;
 
-	Person p;
 	public static void main(String[] args) throws IOException {	
+		MyService ms = new MyService();
+		ms.save(new ObjectModel("Bob", "Is cool!"));
 		RequestHandler rh = new RequestHandler();
-		rh.sendGetRequest();	
+		jsonMap =  rh.sendGetRequest();	
 		SpringApplication.run(ElasticsearchApplication.class, args);
 	
 	}
@@ -35,6 +38,10 @@ public class ElasticsearchApplication {
 	@GetMapping("/o")
 	public List<String> supBitch(){
 		return List.of("hi", "there");
+	}
+	@GetMapping("/p")
+	public HashMap<String, Object> supDitch(){
+		return jsonMap;
 	}
 
 
