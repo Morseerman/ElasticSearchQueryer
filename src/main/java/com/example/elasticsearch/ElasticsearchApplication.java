@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.elasticsearch.es2.MyService;
-import com.example.elasticsearch.es2.ObjectModel;
 
 
 @SpringBootApplication
@@ -27,10 +25,13 @@ public class ElasticsearchApplication {
 	public static HashMap jsonMap;
 
 	public static void main(String[] args) throws IOException {	
-		MyService ms = new MyService();
-		ms.save(new ObjectModel("Bob", "Is cool!"));
+		
 		RequestHandler rh = new RequestHandler();
 		jsonMap =  rh.sendGetRequest();	
+		
+		
+		rh.putData(jsonMap);
+		//rh.deleteData();
 		SpringApplication.run(ElasticsearchApplication.class, args);
 	
 	}
